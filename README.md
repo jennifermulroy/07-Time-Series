@@ -6,25 +6,65 @@
 
 In this assignment, historical Dollar-Yen exchange rate futures data was used to apply time series analysis and modeling to determine whether there was any predictable behavior.
 
-The data was decomposed using a Hodrick-Prescott Filter into trend and noise 
+Summary of Analysis: 
+
+1. Decomposition using a Hodrick-Prescott Filter (Decompose the Settle price into trend and noise)
+2. Forecasting Returns using an ARMA Model
+3. Forecasting the Settle Price using an ARIMA Model
+4. Forecasting Volatility with GARCH
 
 
-1. Decomposition using a Hodrick-Prescott Filter (Decompose the Settle price into trend and noise).
-2. Forecasting Returns using an ARMA Model.
-3. Forecasting the Settle Price using an ARIMA Model.
-4. Forecasting Volatility with GARCH.
+A historical plot of Yen-USD futures settle price, it indicates a long-term trend of the Yen strengthening against the Dollar and therefore, a potential long-term investment opportunity. 
 
-Use the results of the time series analysis and modeling to answer the following questions:
+![yen](yen.png)
+
+The plot of the Settle price verse the Trend line found using the Hodrick-Prescott Filter indicates the actual Yen settle price significantly fluctuates from the trend line. These flunctuations could represent short term buying opportunities when the Yen settle price falls below the trend line.  
+
+![trendline](Trendline.png)
+
+Looking more closely at the most recent data as of 10/15/2019, the Yen sits below the trend line indicating a potential near-term buying opportunity.
+
+![recentdata](recenttrendline.png)
+
+### Forecasting Returns using an ARMA Model
+
+The ARMA model was run on the futures Settle Returns, the AR and MA parameters were set to order=(2, 1). Based on the results, the model forecasts returns to decline over the next 5-day period. 
+
+![ARMAplot](ARMAgraph.png)
+
+But the summary of the model's results show coefficients with p-values greater than 0.05 and therefore, not statistically significant. I would not be confident using this model. The prior days' returns do not appear to be good predictors of future returns. 
+
+![ARMA](ARMA.png)
+
+### Forecasting the Settle Price using an ARIMA Model
+
+The ARIMA model was run on the raw Yen Settle Price with 5 auto-regressive lags and 1 moving average lag; order=(5,1,1). The model forecasts the Japanese Yen Settle Price will move higher in the near term. 
+
+![ARIMAplot](ARIMAgraph.png)
+
+But the summary of results show p-values of the lag coefficients to be greater than 0.05, therefore, not statistically significant. I would not be confident using this model.   
+
+![ARIMA](ARIMA.png) 
+
+
+### Volatility Forecasting with GARCH
+
+The GARCH model was used to forecast near-term volatility of Japanese Yen futures returns. The parameters were set to order=(2,1). The model predicted risk to increase over the next five days. 
+
+![GARCHplot](GARCHgraph.png)
+
+Based on the model's summary of results, I would be confident using this model. Although, the model shows mixed p-values results, the one day lag is less than 0.05 and the two day lag is greater than 0.05. The one-day lag of volatility is statistically significant indicating a relationship between yesterday's volatility to today's volatility in the Settle price. The two-day lag does not show statistical significance. I would reduce the parameter p to a value of 1.   
+
+![GARCH](GARCH.png)
+
+
+In summary, the Yen price chart indicates a long-term trend of strengthening against the Dollar and would potentially make a great long term investment. Based on recent data analysis, the Yen currently sits below the trend line and may also be a short term buying opportunity. Unfortantely, the ARMA and ARIMA model did not show statistical signficance and therefore do not provide additional insight into the direction of future returns or settle price. But the GARCH model does appear to be helpful in the analysis and predicts higher risk in the near term to monitor. 
+
+
 
 1. Based on your time series analysis, would you buy the yen now?
 2. Is the risk of the yen expected to increase or decrease?
 3. Based on the model evaluation, would you feel confident in using these models for trading?
-
-The historical plot of Yen-USD futures settle price indicates a long-term trend of the Yen strengthening against the Dollar and may be a potential long-term investment opportunity. The Hodrick-Prescott Filter decomposed the Settle price into two separate time series of trend and noise. From the Settle verse Trend line plot, the actual Yen settle price significantly fluctuates from the trend line potentially creating short term buying opportunities. As of 10/15, the most recent data in the analysis, the Yen sits below the trend line indicating a potential near-term buying opportunity.
-
-The risk of the yen is expected to increase over the next five days based on the GARCH model. The one-day lag of volatility is statistically significant indicating a relationship between yesterday's volatility to today's volatility in the Settle price. The two-day lag does not show statistical significance.
-
-I would not be confident using the ARMA and ARIMA models, the coefficients have p-values greater than 0.05 and therefore, not statistically significant. Prior days' returns do not appear to be good predictors of future returns. I would be confident in applying the GARCH model in my analysis but would reduce the parameter p to a value of 1.
 
 
 #### Linear Regression Forecasting
